@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\buildMultiTargeting\BlazorWasmBunzai.Server.props" />
+</Project>

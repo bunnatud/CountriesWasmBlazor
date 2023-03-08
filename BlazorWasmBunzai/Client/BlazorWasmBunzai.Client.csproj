@@ -1,0 +1,33 @@
+<Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="7.0.3" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="7.0.3" PrivateAssets="all" />
+    <PackageReference Include="Syncfusion.Blazor.Buttons" Version="20.4.0.51" />
+    <PackageReference Include="Syncfusion.Blazor.Core" Version="20.4.0.51" />
+    <PackageReference Include="Syncfusion.Blazor.DropDowns" Version="20.4.0.51" />
+    <PackageReference Include="Syncfusion.Blazor.Grid" Version="20.4.0.51" />
+    <PackageReference Include="Syncfusion.Blazor.Inputs" Version="20.4.0.51" />
+    <PackageReference Include="Syncfusion.Blazor.Lists" Version="20.4.0.51" />
+    <PackageReference Include="Syncfusion.Blazor.Navigations" Version="20.4.0.51" />
+    <PackageReference Include="Syncfusion.Blazor.Notifications" Version="20.4.0.51" />
+    <PackageReference Include="Syncfusion.Blazor.Popups" Version="20.4.0.51" />
+    <PackageReference Include="Syncfusion.Blazor.Themes" Version="20.4.0.51" />
+    <PackageReference Include="Syncfusion.Licensing" Version="20.4.0.51" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Shared\BlazorWasmBunzai.Shared.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Services\CityService\" />
+  </ItemGroup>
+
+</Project>

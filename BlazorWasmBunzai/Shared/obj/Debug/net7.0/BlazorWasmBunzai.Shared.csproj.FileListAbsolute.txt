@@ -1,0 +1,12 @@
+D:\cs495\BlazorWasmBunzai\BlazorWasmBunzai\Shared\bin\Debug\net7.0\BlazorWasmBunzai.Shared.deps.json
+D:\cs495\BlazorWasmBunzai\BlazorWasmBunzai\Shared\bin\Debug\net7.0\BlazorWasmBunzai.Shared.dll
+D:\cs495\BlazorWasmBunzai\BlazorWasmBunzai\Shared\bin\Debug\net7.0\BlazorWasmBunzai.Shared.pdb
+D:\cs495\BlazorWasmBunzai\BlazorWasmBunzai\Shared\obj\Debug\net7.0\BlazorWasmBunzai.Shared.csproj.AssemblyReference.cache
+D:\cs495\BlazorWasmBunzai\BlazorWasmBunzai\Shared\obj\Debug\net7.0\BlazorWasmBunzai.Shared.GeneratedMSBuildEditorConfig.editorconfig
+D:\cs495\BlazorWasmBunzai\BlazorWasmBunzai\Shared\obj\Debug\net7.0\BlazorWasmBunzai.Shared.AssemblyInfoInputs.cache
+D:\cs495\BlazorWasmBunzai\BlazorWasmBunzai\Shared\obj\Debug\net7.0\BlazorWasmBunzai.Shared.AssemblyInfo.cs
+D:\cs495\BlazorWasmBunzai\BlazorWasmBunzai\Shared\obj\Debug\net7.0\BlazorWasmBunzai.Shared.csproj.CoreCompileInputs.cache
+D:\cs495\BlazorWasmBunzai\BlazorWasmBunzai\Shared\obj\Debug\net7.0\BlazorWasmBunzai.Shared.dll
+D:\cs495\BlazorWasmBunzai\BlazorWasmBunzai\Shared\obj\Debug\net7.0\refint\BlazorWasmBunzai.Shared.dll
+D:\cs495\BlazorWasmBunzai\BlazorWasmBunzai\Shared\obj\Debug\net7.0\BlazorWasmBunzai.Shared.pdb
+D:\cs495\BlazorWasmBunzai\BlazorWasmBunzai\Shared\obj\Debug\net7.0\ref\BlazorWasmBunzai.Shared.dll

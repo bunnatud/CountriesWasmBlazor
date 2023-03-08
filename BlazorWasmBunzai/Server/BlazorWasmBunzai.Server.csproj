@@ -1,0 +1,32 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Data\CountriesAndCities.db" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Data\CountriesAndCities.db">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Dapper" Version="2.0.123" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="7.0.3" />
+    <PackageReference Include="Syncfusion.Blazor.Core" Version="20.4.0.51" />
+    <PackageReference Include="System.Data.SQLite.Core" Version="1.0.117" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Client\BlazorWasmBunzai.Client.csproj" />
+    <ProjectReference Include="..\Shared\BlazorWasmBunzai.Shared.csproj" />
+  </ItemGroup>
+
+
+</Project>

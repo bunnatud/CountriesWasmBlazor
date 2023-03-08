@@ -1,0 +1,101 @@
+﻿@page "/countrylist"
+@inject ICountryService CountryService;
+@inject NavigationManager NavigationManager;
+@using Syncfusion.Blazor.Popups
+@inject SfDialogService DialogService
+
+<PageTitle>Countries List</PageTitle>
+
+<h3>Countries List</h3>
+
+<SfGrid DataSource="@countries"
+        Toolbar="Toolbaritems">
+    <GridEvents OnToolbarClick="ToolbarClickHandler" TValue="Country" RowSelected="RowSelectHandler"></GridEvents>
+    <GridColumns>
+        <GridColumn Field="@nameof(Country.CountryId)"
+                    HeaderText="Country ID"
+                    TextAlign="@TextAlign.Left"
+                    Width="20">
+        </GridColumn>
+        <GridColumn Field="@nameof(Country.CountryName)"
+                    HeaderText="Country Name"
+                    TextAlign="@TextAlign.Left"
+                    Width="80">
+        </GridColumn>
+    </GridColumns>
+</SfGrid>
+
+@code {
+    private List<ItemModel> Toolbaritems = new List<ItemModel>();  //provides the list to populate the toolbar items
+    public List<Country>? countries;
+    private int CountryID = 0;
+    private string CountryName = string.Empty;
+
+    protected override async Task OnInitializedAsync()
+    {
+        //Add options for the custom toolbar
+        Toolbaritems.Add(new ItemModel() { Text = "Add", TooltipText = "Add a new country", PrefixIcon = "e-add" });
+        Toolbaritems.Add(new ItemModel() { Text = "Edit", TooltipText = "Edit selected country", PrefixIcon = "e-edit" });
+        Toolbaritems.Add(new ItemModel() { Text = "Delete", TooltipText = "Delete selected country", PrefixIcon = "e-delete" });
+
+        await RefreshCountriesGrid();
+    }
+
+    public async Task ToolbarClickHandler(Syncfusion.Blazor.Navigations.ClickEventArgs args)
+    {
+        if (args.Item.Text == "Add")
+        {
+            //Code for adding goes here
+            CountryID = 0;
+            NavigationManager.NavigateTo($"/countriesaddedit/{CountryID}");
+        }
+        if (args.Item.Text == "Edit")
+        {
+            //Check that the user has selected a row
+            if (CountryID == 0)
+            {
+                await DialogService.AlertAsync("Please select a country.", "No Country Selected");
+            }
+            else
+            {
+                NavigationManager.NavigateTo($"/countriesaddedit/{CountryID}");
+                CountryID = 0;
+            }
+        }
+
+        if (args.Item.Text == "Delete")
+        {
+            //Check that the user has selected a row
+            if (CountryID == 0)
+            {
+                await DialogService.AlertAsync("Please select a country.", "No Country Selected");
+            }
+            else
+            {
+                //code for deleting
+                string dialogMessage = $"Are you sure you want to delete {CountryName}?";
+                bool isConfirm = await DialogService.ConfirmAsync(dialogMessage, "Delete Country");
+                if (isConfirm)
+                {
+                    await CountryService.CountryDelete(CountryID);
+                    await RefreshCountriesGrid();
+                    CountryID = 0;
+                }
+            }
+        }
+    }
+
+    public void RowSelectHandler(RowSelectEventArgs<Country> args)
+    {
+        //{args.Data} returns the current selected record.
+        CountryID = args.Data.CountryId;
+    }
+
+    public async Task RefreshCountriesGrid()
+    {
+        await CountryService.GetCountries();
+        countries = new();
+        foreach (var country in CountryService.Countries)
+            countries.Add(country);
+    }
+}

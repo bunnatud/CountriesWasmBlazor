@@ -1,0 +1,125 @@
+﻿@page "/countriesaddedit/{CountryId:int}"
+
+@inject ICountryService CountryService
+@inject NavigationManager NavigationManager
+@inject SfDialogService DialogService
+
+<PageTitle>@pagetitle</PageTitle>
+
+<h1>@pagetitle</h1>
+
+<SfDialog IsModal="true" Width="500px" ShowCloseIcon="false" Visible="true">
+
+    <h5>@pagetitle</h5>
+    <br />
+    <EditForm Model="@country" OnValidSubmit="@CountriesSave">
+        <div>
+            <SfTextBox Enabled="true" Placeholder="Country"
+                       FloatLabelType="@FloatLabelType.Always"
+                       @bind-Value="country.CountryName"></SfTextBox>
+        </div>
+        <br /><br />
+        <div class="e-footer-content">
+            <div class="button-container">
+                <button type="submit" class="e-btn e-normal e-primary">Save</button>
+                <button type="button" class="e-btn e-normal" @onclick="@Cancel">Cancel</button>
+            </div>
+        </div>
+    </EditForm>
+</SfDialog>
+
+@code {
+    // Create a new, empty Country   object
+    public Country country = new Country();
+    public string pagetitle = "Add a Country";
+
+    [Parameter]
+    public int CountryId { get; set; }
+
+    //Executes on page open, sets headings and gets data in the case of edit
+    protected override async Task OnInitializedAsync()
+    {
+        if (CountryId == 0)
+        {
+            pagetitle = "Add a Country";
+        }
+        else
+        {
+            pagetitle = "Edit a Country";
+            country = await CountryService.GetCountryById(CountryId);
+        }
+    }
+
+    // Executes OnValidSubmit of EditForm above.
+    protected async Task CountriesSave()
+    {
+        if (CountryId == 0)
+        {
+            //Check for duplicates
+            int duplicates = await CountryService.CountCountriesByName(country.CountryName);
+
+            if (duplicates == 0)
+            {
+                //Count is zero, so duplicate won't be created - proceed with insert
+                var result = await CountryService.CountryInsert(country);
+
+                //If insert is successful, navigate back to Country List
+                if (result.IsSuccessStatusCode)
+                {
+                    NavigationManager.NavigateTo("/countrylist");
+                }
+                //Otherwise warn the user the insert has failed with unknown error
+                else
+                {
+                    await DialogService.AlertAsync("Unknown Error!", "Can't insert country.");
+                }
+            }
+            else
+            {
+                //Count is not zero, so Country Name already exists in the database.
+                //Warn the user, but keep input dialog open
+                string header = "Country Already Exists";
+                string warningMessage = "จื้อมันซ้ำเปลี่ยนมาใหม่เน้อ";
+                await DialogService.AlertAsync(warningMessage, header);
+            }
+        }
+        else
+        {
+            //Editing - Check for duplicates
+            int duplicates = await CountryService.CountCountriesByNameAndId(country.CountryName, country.CountryId);
+
+            if (duplicates == 0)
+            {
+                //Count is zero, so duplicate won't be created - proceed with update
+                var result = await CountryService.CountryUpdate(CountryId, country);
+
+                //If insert is successful, navigate back to Country List
+                if (result.IsSuccessStatusCode)
+                {
+                    NavigationManager.NavigateTo("/countrylist");
+                }
+                //Otherwise warn the user the insert has failed with unknown error
+                else
+                {
+                    await DialogService.AlertAsync("Unknown Error!", "Can't insert country.");
+                }
+            }
+            else
+            {
+                //Count is not zero, so Country Name already exists in the database.
+                //Warn the user, but keep input dialog open
+                string header = "Country Already Exists";
+                string warningMessage = "Sorry, you can't add this country again, it already exists.";
+                await DialogService.AlertAsync(warningMessage, header);
+            }
+        }
+    }
+
+
+    //Executes if user clicks the Cancel button.
+    void Cancel()
+    {
+        NavigationManager.NavigateTo("/countrylist");
+    }
+
+}
